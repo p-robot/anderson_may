@@ -9,23 +9,22 @@ W. Probert, 2016
 import numpy as np, pandas as pd, urllib2
 from os.path import join
 
-main_dir = join('/', 'Users', 'wjmprobert', 'Projects', \
-    'companion anderson and may')
-
 # Pull the data from Ben Bolker's webpage
 url = "https://ms.mcmaster.ca/~bolker/measdata/ewmeas.dat"
 
-site = urllib2.urlopen(url)
-result = site.read()
+if __name__=="__main__":
 
-# Process the data (it's a long string)
-rows = [x.split(' ') for x in result.split('\n')]
-rows = rows[:-1]
+    site = urllib2.urlopen(url)
+    result = site.read()
 
-rows = np.array(rows).astype(np.float64)
+    # Process the data (it's a long string)
+    rows = [x.split(' ') for x in result.split('\n')]
+    rows = rows[:-1]
 
-measles = pd.DataFrame(rows)
-measles.columns = ['date', 'cases']
+    rows = np.array(rows).astype(np.float64)
 
-measles.to_csv(join(main_dir, 'data', 'ch6_measles_uk_48_66.csv'), \
-    index = False)
+    measles = pd.DataFrame(rows)
+    measles.columns = ['date', 'cases']
+
+    measles.to_csv(join('.', 'data', 'ch6_measles_uk_48_66.csv'), \
+        index = False)
